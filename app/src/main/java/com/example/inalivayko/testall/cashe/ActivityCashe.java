@@ -23,6 +23,7 @@ public class ActivityCashe extends AppCompatActivity {
         setContentView(R.layout.activity_cashe);
 
         ListView lv =  (ListView) findViewById(R.id.listView);
+        assert lv != null;
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
@@ -30,7 +31,7 @@ public class ActivityCashe extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), "Click ID: "+String.valueOf(id)+", pos.: "+String.valueOf(position),
                 //        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
-                intent.putExtra(ActivityPurchase.EXTRA_PURSHASE_ID, (long)id);
+                intent.putExtra(ActivityPurchase.EXTRA_PURSHASE_ID, (int)id);
                 startActivity(intent);
             }
         });
