@@ -17,23 +17,25 @@ import com.example.inalivayko.testall.R;
 
 public class ActivityCashe extends AppCompatActivity {
 
-    private ListView lv;
+    //private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashe);
 
-        lv =  (ListView) findViewById(R.id.listView);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-                                    long id) {
-                Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
-                intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, (int)id);
-                startActivity(intent);
-            }
-        });
+        ListView lv =  (ListView) findViewById(R.id.listView);
+        if (lv != null) {
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                        long id) {
+                    Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
+                    intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, (int)id);
+                    startActivity(intent);
+                }
+            });
+        }
 
         try {
             Cursor cursor = Purchase.getList(this);
