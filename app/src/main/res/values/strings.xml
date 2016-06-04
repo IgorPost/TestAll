@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Application for testing</string>
+    <string name="hello_world">Hello World! Let\'s rock!</string>
+
+    <string name="but_crm">CRM</string>
+    <string name="but_json">JSON</string>
+    <string name="but_cashe">Cashe</string>
+
+    <string name="but_read_records">Read rec.</string>
+    <string name="but_add_records">Add rec.</string>
+    <string name="but_del_records">Del. rec.</string>
+
+    <string name="but_create_table">Cr. tab.</string>
+    <string name="but_delete_table">Del. tab.</string>
+    <string name="but_rename_table">Ren. tab.</string>
+
+    <string name="but_add_table_column">Add col.</string>
+    <string name="but_delete_table_column">Del. col.</string>
+    <string name="but_rename_table_column">Ren. col.</string>
+
+</resources>
