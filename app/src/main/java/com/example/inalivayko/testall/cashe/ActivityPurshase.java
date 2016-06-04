@@ -18,11 +18,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ActivityPurshase extends AppCompatActivity implements Purshase.intPurshase {
+public class ActivityPurshase extends AppCompatActivity implements Purchase.intPurshase {
 
     public static final String EXTRA_PURSHASE_ID = "purshaseID";
 
-    private Purshase purshase;
+    private Purchase purshase;
 
     private TextView tvID;
 
@@ -39,7 +39,7 @@ public class ActivityPurshase extends AppCompatActivity implements Purshase.intP
 
         long purshaseID = (long) getIntent().getExtras().getLong(EXTRA_PURSHASE_ID);
 
-        purshase = new Purshase(purshaseID, this, this);
+        purshase = new Purchase(purshaseID, this, this);
 
         initControls();
         fillControls();

@@ -12,7 +12,7 @@ import android.widget.Toast;
 /**
  * Created by i.nalivayko on 17.05.2016.
  */
-public class Purshase {
+public class Purchase {
 
     private long ID;
     private String nomenclature;
@@ -27,7 +27,7 @@ public class Purshase {
     };
     private intPurshase listener;
 
-    public Purshase(long ID, Context context, Activity activity) {
+    public Purchase(long ID, Context context, Activity activity) {
 
         this.ID = ID;
         this.context = context;
@@ -116,6 +116,13 @@ public class Purshase {
                 ", nomenclature='" + nomenclature + '\'' +
                 '}';
     }
+
+    public static Cursor getList() {
+        return null;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    //                              SETTERS AND GETTERS
 
     public String getNomenclature() {
         return nomenclature;
