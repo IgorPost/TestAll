@@ -29,16 +29,16 @@ public class ActivityCashe extends AppCompatActivity {
                                     long id) {
                 //Toast.makeText(getApplicationContext(), "Click ID: "+String.valueOf(id)+", pos.: "+String.valueOf(position),
                 //        Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ActivityCashe.this, ActivityPurshase.class);
-                intent.putExtra(ActivityPurshase.EXTRA_PURSHASE_ID, (long)id);
+                Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
+                intent.putExtra(ActivityPurchase.EXTRA_PURSHASE_ID, (long)id);
                 startActivity(intent);
             }
         });
 
         try {
-            SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
-            SQLiteDatabase db = dbh.getReadableDatabase();
-            Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {"_id", "NOMENCLATURE", "QUANTITY", "PRICE", "AMOUNT"}, null, null, null, null, null);
+//            SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
+//            SQLiteDatabase db = dbh.getReadableDatabase();
+//            Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {"_id", "NOMENCLATURE", "QUANTITY", "PRICE", "AMOUNT"}, null, null, null, null, null);
             //Cursor cursor = db.rawQuery("SELECT _id, NOMENCLATURE, NUMBER, PRICE/100 AS PRICE, AMOUNT/100 AS AMOUNT FROM PURSHASES", null);
 
 //            CursorAdapter listAdapter = new SimpleCursorAdapter(this,
@@ -48,6 +48,7 @@ public class ActivityCashe extends AppCompatActivity {
 //                    new int[]{R.id.tvID, R.id.tvNomenclature, R.id.tvNumber, R.id.tvPrice, R.id.tvAmount},
 //                    0);
 
+            Cursor cursor = Purchase.getList(this);
             CasheCursorAdapter listAdapter = new CasheCursorAdapter(this, cursor, 1);
 
             lv.setAdapter(listAdapter);
