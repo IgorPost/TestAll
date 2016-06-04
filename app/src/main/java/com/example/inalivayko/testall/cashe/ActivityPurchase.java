@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase {
 
-    public static final String EXTRA_PURCHASE_ID = "purshaseID";
+    public static final String EXTRA_PURCHASE_ID = "purchaseID";
 
     private Purchase purshase;
 
