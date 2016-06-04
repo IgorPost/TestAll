@@ -22,16 +22,16 @@ public class Purchase {
     private Context context;
     private Activity activity;
 
-    static interface intPurshase {
+    static interface intPurchase {
         void setAmount();
     };
-    private intPurshase listener;
+    private intPurchase listener;
 
     public Purchase(long ID, Context context, Activity activity) {
 
         this.ID = ID;
         this.context = context;
-        this.listener = (intPurshase) activity;
+        this.listener = (intPurchase) activity;
         this.activity = activity;
 
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(context);

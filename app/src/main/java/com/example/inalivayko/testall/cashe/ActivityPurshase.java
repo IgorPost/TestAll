@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ActivityPurshase extends AppCompatActivity implements Purchase.intPurshase {
+public class ActivityPurshase extends AppCompatActivity implements Purchase.intPurchase {
 
     public static final String EXTRA_PURSHASE_ID = "purshaseID";
 
