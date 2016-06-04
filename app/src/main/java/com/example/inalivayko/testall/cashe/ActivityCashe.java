@@ -129,10 +129,10 @@ public class ActivityCashe extends AppCompatActivity {
                                        int number, int price, int amount) {
         // "NOMENCLATURE", "NUMBER", "PRICE", "AMOUNT"
         ContentValues insertValues = new ContentValues();
-        insertValues.put("NOMENCLATURE", nomenclature);
-        insertValues.put("QUANTITY", number);
-        insertValues.put("PRICE", price);
-        insertValues.put("AMOUNT", amount);
+        insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, nomenclature);
+        insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, number);
+        insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, price);
+        insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name, amount);
         db.insert(CasheDatabaseHelper.TablePurchases.TABLE_NAME, null, insertValues);
     }
 }
