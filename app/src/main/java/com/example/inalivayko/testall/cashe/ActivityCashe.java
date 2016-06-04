@@ -17,43 +17,28 @@ import com.example.inalivayko.testall.R;
 
 public class ActivityCashe extends AppCompatActivity {
 
+    private ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashe);
 
-        ListView lv =  (ListView) findViewById(R.id.listView);
-        assert lv != null;
+        lv =  (ListView) findViewById(R.id.listView);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
                                     long id) {
-                //Toast.makeText(getApplicationContext(), "Click ID: "+String.valueOf(id)+", pos.: "+String.valueOf(position),
-                //        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
-                intent.putExtra(ActivityPurchase.EXTRA_PURSHASE_ID, (int)id);
+                intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, (int)id);
                 startActivity(intent);
             }
         });
 
         try {
-//            SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
-//            SQLiteDatabase db = dbh.getReadableDatabase();
-//            Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {"_id", "NOMENCLATURE", "QUANTITY", "PRICE", "AMOUNT"}, null, null, null, null, null);
-            //Cursor cursor = db.rawQuery("SELECT _id, NOMENCLATURE, NUMBER, PRICE/100 AS PRICE, AMOUNT/100 AS AMOUNT FROM PURSHASES", null);
-
-//            CursorAdapter listAdapter = new SimpleCursorAdapter(this,
-//                    R.layout.cashe_list_item,
-//                    cursor,
-//                    new String[]{"_id", "NOMENCLATURE", "NUMBER", "PRICE", "AMOUNT"},
-//                    new int[]{R.id.tvID, R.id.tvNomenclature, R.id.tvNumber, R.id.tvPrice, R.id.tvAmount},
-//                    0);
-
             Cursor cursor = Purchase.getList(this);
             CasheCursorAdapter listAdapter = new CasheCursorAdapter(this, cursor, 1);
-
             lv.setAdapter(listAdapter);
-
         } catch(SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();

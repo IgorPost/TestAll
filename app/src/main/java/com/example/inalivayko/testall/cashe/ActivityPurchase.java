@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase {
 
-    public static final String EXTRA_PURSHASE_ID = "purshaseID";
+    public static final String EXTRA_PURCHASE_ID = "purshaseID";
 
     private Purchase purshase;
 
@@ -37,9 +37,9 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purshase);
 
-        long purshaseID = (long) getIntent().getExtras().getLong(EXTRA_PURSHASE_ID);
+        long purchaseID = (int) getIntent().getExtras().getLong(EXTRA_PURCHASE_ID);
 
-        purshase = new Purchase(purshaseID, this, this);
+        purshase = new Purchase(purchaseID, this, this);
 
         initControls();
         fillControls();
