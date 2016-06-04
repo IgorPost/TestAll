@@ -92,19 +92,16 @@ public class ActivityCashe extends AppCompatActivity {
     public void onClickDelRecords(View view){
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
         SQLiteDatabase db = dbh.getReadableDatabase();
-
-        //db.delete("PURSHASES", "_id = ?", new String[] {"5"});
         db.delete(CasheDatabaseHelper.TablePurchases.TABLE_NAME, null, null);
-
         db.close();
     }
 
     public void onClickCreateTable(View view) {
-
+        CasheDatabaseHelper.createTable(this, CasheDatabaseHelper.TablePurchases.CREATING_STRING);
     }
 
     public void onClickDeleteTable(View view) {
-
+        CasheDatabaseHelper.deleteTable(this, CasheDatabaseHelper.TablePurchases.TABLE_NAME);
     }
 
     public void onClickRenameTable(View view) {

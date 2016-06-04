@@ -31,7 +31,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    private static Boolean createTable(Context context, String createString) {
+    public static Boolean createTable(Context context, String createString) {
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
         try{
@@ -42,7 +42,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    private static Boolean deleteTable(Context context, String tableName) {
+    public static Boolean deleteTable(Context context, String tableName) {
         String sql = "DROP TABLE IF EXISTS "+tableName+";";
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -53,7 +53,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         }return true;
     }
 
-    static Boolean renameTable(Context context, String fromName, String toName) {
+    public static Boolean renameTable(Context context, String fromName, String toName) {
         String sql = "ALTER TABLE "+fromName+" RENAME TO "+toName+";";
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -65,7 +65,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    static Boolean addTableColumn(Context context, String tableName, String columnName, String columnType) {
+    public static Boolean addTableColumn(Context context, String tableName, String columnName, String columnType) {
         String sql = "ALTER TABLE "+tableName+" ADD COLUMN "+columnName+" "+columnType+";"; // ALTER TABLE tbl_info ADD COLUMN weight INTEGER;
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -77,7 +77,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    private static Boolean deleteTableColumn(Context context, String tableName, String columnName) {
+    public static Boolean deleteTableColumn(Context context, String tableName, String columnName) {
 
         // Нужно:
         // - создать новую таблицу нужной структуры;
@@ -96,7 +96,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    private static Boolean renameTableColumn(Context context, String tableName, String fromColumnName, String toColumnName) {
+    public static Boolean renameTableColumn(Context context, String tableName, String fromColumnName, String toColumnName) {
 
         // Нужно:
         // - переименовать существующую таблицу;
@@ -115,7 +115,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    static class TablePurchases {
+    public static class TablePurchases {
         public static final String TABLE_NAME = "PURCHASES";
         public static final TableColumn COLUMN_ID = new TableColumn("_id", "INTEGER", "PRIMARY KEY AUTOINCREMENT");
         public static final TableColumn COLUMN_DATE = new TableColumn("DATE", "INTEGER", "");

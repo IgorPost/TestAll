@@ -18,7 +18,7 @@
         <activity android:name=".crm.ActivityCRM" />
         <activity android:name=".cashe.ActivityCashe" />
         <activity android:name=".json.ActivityJSON" />
-        <activity android:name=".cashe.ActivityPurshase"></activity>
+        <activity android:name=".cashe.ActivityPurchase"></activity>
     </application>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />

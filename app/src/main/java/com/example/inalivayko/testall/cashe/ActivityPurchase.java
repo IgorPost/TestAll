@@ -37,7 +37,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purshase);
 
-        long purchaseID = (int) getIntent().getExtras().getLong(EXTRA_PURCHASE_ID);
+        int purchaseID = (int) getIntent().getExtras().getInt(EXTRA_PURCHASE_ID);
 
         purshase = new Purchase(purchaseID, this, this);
 

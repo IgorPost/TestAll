@@ -27,7 +27,7 @@ public class Purchase {
     };
     private intPurchase listener;
 
-    public Purchase(long ID, Context context, Activity activity) {
+    public Purchase(int ID, Context context, Activity activity) {
 
         this.ID = ID;
         this.context = context;
@@ -48,7 +48,7 @@ public class Purchase {
             // textPurshaseID.setText(purshaseData);
         }
         else {
-            // textPurshaseID.setText("Нет данных для выборки...");
+            Toast.makeText(activity, "Нет данных для выборки...", Toast.LENGTH_LONG).show();
         }
         db.close();
 
@@ -66,7 +66,7 @@ public class Purchase {
             // Готовим значения для записи
             savedValues = new ContentValues();
             savedValues.put("NOMENCLATURE", getNomenclature());
-            savedValues.put("NUMBER", String.valueOf(getNumber()));
+            savedValues.put("QUANTITY", String.valueOf(getNumber()));
             savedValues.put("PRICE", String.valueOf(getPrice()));
             savedValues.put("AMOUNT", String.valueOf(getAmount()));
         }
