@@ -82,7 +82,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/etQuantity"
         android:layout_below="@+id/tvName"
-        android:layout_toRightOf="@+id/tvQuantity" />
+        android:layout_toRightOf="@+id/tvQuantity"
+        android:inputType="numberDecimal" />
 
     <!-- PRICE -->
     <TextView
@@ -94,13 +95,14 @@
         android:layout_alignTop="@+id/etPrice"
         android:layout_alignBottom="@+id/etPrice"
         android:gravity="center"
-        android:textSize="16dp" />
+        android:textSize="16dp"/>
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etPrice"
         android:layout_below="@+id/tvQuantity"
-        android:layout_toRightOf="@+id/tvPrice" />
+        android:layout_toRightOf="@+id/tvPrice"
+        android:inputType="numberDecimal"/>
 
     <!-- AMOUNT -->
     <TextView
@@ -118,7 +120,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/etAmount"
         android:layout_below="@+id/tvPrice"
-        android:layout_toRightOf="@+id/tvAmount" />
+        android:layout_toRightOf="@+id/tvAmount"
+        android:inputType="numberDecimal"/>
 
     <!-- BUTTON SAVE -->
     <Button
