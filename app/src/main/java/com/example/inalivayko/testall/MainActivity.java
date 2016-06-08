@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickJSON(View view){
+    public void onClickLib(View view){
         Intent intent = new Intent(this, ActivityJSON.class);
         startActivity(intent);
     }

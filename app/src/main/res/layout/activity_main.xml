@@ -45,18 +45,19 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/but_json"
-            android:id="@+id/butJson"
-            android:layout_weight="1"
-            android:onClick="onClickJSON" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/but_cashe"
             android:id="@+id/butCashe"
             android:layout_weight="1"
             android:onClick="onClickCashe" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/but_lib"
+            android:id="@+id/butLib"
+            android:layout_weight="1"
+            android:onClick="onClickLib" />
+
     </LinearLayout>
 
 </RelativeLayout>
