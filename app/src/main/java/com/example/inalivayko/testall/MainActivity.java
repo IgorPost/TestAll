@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.example.inalivayko.testall.cashe.ActivityCashe;
 import com.example.inalivayko.testall.crm.ActivityCRM;
-import com.example.inalivayko.testall.json.ActivityJSON;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,19 +17,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void showToast(String message){
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this, message, duration);
-        toast.show();
-    }
-
     public void onClickCRM(View view){
         Intent intent = new Intent(this, ActivityCRM.class);
         startActivity(intent);
     }
 
     public void onClickLib(View view){
-        Intent intent = new Intent(this, ActivityJSON.class);
+        Intent intent = new Intent(this, ActivityExamplesLibrary.class);
         startActivity(intent);
     }
 

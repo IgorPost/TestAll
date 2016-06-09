@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inalivayko.testall">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,9 +20,8 @@
         <activity android:name=".crm.ActivityCRM" />
         <activity android:name=".cashe.ActivityCashe" />
         <activity android:name=".json.ActivityJSON" />
-        <activity android:name=".cashe.ActivityPurchase"></activity>
+        <activity android:name=".cashe.ActivityPurchase" />
+        <activity android:name=".ActivityExamplesLibrary"></activity>
     </application>
-
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>

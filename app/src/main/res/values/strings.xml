@@ -2,6 +2,8 @@
     <string name="app_name">Application for testing</string>
     <string name="hello_world">Hello World! Let\'s rock!</string>
 
+    <string name="examples_library">EXAMPLES LIBRARY</string>
+
     <string name="but_crm">CRM</string>
     <string name="but_lib">Lib.</string>
     <string name="but_cashe">Cashe</string>
