@@ -1,4 +1,4 @@
-package com.example.inalivayko.testall.database;
+package com.example.inalivayko.testall.examples_library.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

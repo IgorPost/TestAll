@@ -1,4 +1,4 @@
-package com.example.inalivayko.testall.json;
+package com.example.inalivayko.testall.examples_library.json;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

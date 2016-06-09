@@ -19,9 +19,9 @@
         </activity>
         <activity android:name=".crm.ActivityCRM" />
         <activity android:name=".cashe.ActivityCashe" />
-        <activity android:name=".json.ActivityJSON" />
+        <activity android:name=".examples_library.json.ActivityJSON" />
         <activity android:name=".cashe.ActivityPurchase" />
-        <activity android:name=".ActivityExamplesLibrary"></activity>
+        <activity android:name=".examples_library.ActivityExamplesLibrary"></activity>
     </application>
 
 </manifest>

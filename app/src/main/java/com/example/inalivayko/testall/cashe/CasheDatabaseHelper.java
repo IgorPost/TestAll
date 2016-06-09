@@ -5,9 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.inalivayko.testall.database.TableColumn;
-
-import java.util.ArrayList;
+import com.example.inalivayko.testall.examples_library.database.TableColumn;
 
 /**
  * Created by i.nalivayko on 16.05.2016.

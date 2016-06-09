@@ -1,4 +1,4 @@
-package com.example.inalivayko.testall.database;
+package com.example.inalivayko.testall.examples_library.database;
 
 /**
  * Created by i.nalivayko on 01.06.2016.
