@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/examples_library"
-        android:id="@+id/tvExampesLibrary"
+        android:id="@+id/tvExamplesLibrary"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -22,10 +22,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/date_calendar"
         android:id="@+id/butDateCalendar"
-        android:layout_below="@+id/tvExampesLibrary"
+        android:layout_below="@+id/tvExamplesLibrary"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp" />
+        android:layout_marginTop="31dp"
+        android:onClick="onClickDateCalendar" />
 </RelativeLayout>

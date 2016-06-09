@@ -1,10 +1,12 @@
 package com.example.inalivayko.testall.examples_library;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.inalivayko.testall.R;
+import com.example.inalivayko.testall.examples_library.date_calendar.ActivityDateCalendar;
 
 public class ActivityExamplesLibrary extends AppCompatActivity {
 
@@ -16,7 +18,8 @@ public class ActivityExamplesLibrary extends AppCompatActivity {
 
     }
 
-    public void onClickTest(View view){
-
+    public void onClickDateCalendar(View view){
+        Intent intent = new Intent(this, ActivityDateCalendar.class);
+        startActivity(intent);
     }
 }
