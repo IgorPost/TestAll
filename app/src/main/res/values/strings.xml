@@ -4,6 +4,9 @@
 
     <string name="examples_library">EXAMPLES LIBRARY</string>
 
+    <string name="date_calendar">Date, calendar</string>
+    <string name="but_test">Test</string>
+
     <string name="but_crm">CRM</string>
     <string name="but_lib">Lib.</string>
     <string name="but_cashe">Cashe</string>

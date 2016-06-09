@@ -2,6 +2,7 @@ package com.example.inalivayko.testall.examples_library;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.inalivayko.testall.R;
 
@@ -15,5 +16,7 @@ public class ActivityExamplesLibrary extends AppCompatActivity {
 
     }
 
+    public void onClickTest(View view){
 
+    }
 }
