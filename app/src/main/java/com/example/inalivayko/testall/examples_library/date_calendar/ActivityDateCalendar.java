@@ -1,13 +1,10 @@
 package com.example.inalivayko.testall.examples_library.date_calendar;
 
-import android.app.DatePickerDialog;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
 
@@ -16,9 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ActivityDateCalendar extends AppCompatActivity {
+public class ActivityDateCalendar extends AppCompatActivity implements DialogFragmentSelectDate.onDateSetFromDialogFragmentListener{
 
     private TextView tv;
+    long date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +24,12 @@ public class ActivityDateCalendar extends AppCompatActivity {
         setContentView(R.layout.activity_activity_date_calendar);
 
         tv = (TextView) findViewById(R.id.tvResult);
+    }
+
+    void setDateOnTextView() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        String dateView = dateFormat.format(date);
+        tv.setText(dateView);
     }
 
     public void onClickTest(View view){
@@ -97,8 +101,14 @@ public class ActivityDateCalendar extends AppCompatActivity {
 
     public void onClickGetDateFromDialog(View view) {
         FragmentManager manager = getSupportFragmentManager();
-        DialigFragmentSelectDate myDialogFragment = new DialigFragmentSelectDate();
+        DialogFragmentSelectDate myDialogFragment = new DialogFragmentSelectDate();
         myDialogFragment.show(manager, "datePicker");
     }
 
+    @Override
+    public void dateSelectedFromDialogFragmentListener(int year, int month, int day) {
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month, day);
+        date = gregorianCalendar.getTimeInMillis();
+        setDateOnTextView();
+    }
 }
