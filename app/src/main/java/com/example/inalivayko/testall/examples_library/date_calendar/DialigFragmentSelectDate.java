@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DialigFragmentSelectDate extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -28,8 +30,24 @@ public class DialigFragmentSelectDate extends DialogFragment implements DatePick
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        String result = String.valueOf(day)+"."+String.valueOf(month+1)+"."+String.valueOf(year);
-        Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+
+        // setTimeInMillis
+        // getTimeInMillis
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month, day);
+//        gregorianCalendar.setLenient(false);
+//        gregorianCalendar.set(Calendar.YEAR, year);
+//        gregorianCalendar.set(Calendar.MONTH, month);
+//        gregorianCalendar.set(Calendar.DATE, day);
+//        gregorianCalendar.set(Calendar.HOUR, 0);
+//        gregorianCalendar.set(Calendar.MINUTE, 0);
+//        gregorianCalendar.set(Calendar.SECOND, 0);
+//        gregorianCalendar.set(Calendar.MILLISECOND, 0);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+        String result = dateFormat.format(gregorianCalendar.getTimeInMillis());
+
         TextView tv = (TextView) getActivity().findViewById(R.id.tvResult);
         tv.setText(result);
     }

@@ -35,36 +35,64 @@ public class ActivityDateCalendar extends AppCompatActivity {
         // Date -> millis
         // millis -> Date
         //
+        // Calendar -> millis
+        // millis -> Calendar
+        //
         // GregorianCalendar -> millis
         // millis -> GregorianCalendar
 
-
+        Date date = new Date();
         StringBuffer testDate = new StringBuffer();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 
+        addDate(date, testDate, dateFormat);
+        addCalendar(date, testDate, dateFormat);
+        addGregorianCalendar(date, testDate, dateFormat);
+
+        tv.setText(testDate.toString());
+    }
+
+    private void addDate(Date date, StringBuffer testDate, SimpleDateFormat simpleDateFormat) {
         // Date -> millis
         // millis -> Date
-        Date date = new Date();
-        testDate.append("date - millis: "+date.getTime()).append("\n");
-        testDate.append("date - toString(): "+date.toString()).append("\n");
+        testDate.append("====================================").append("\n");
+        testDate.append("Date:").append("\n");
+        testDate.append("- millis: "+date.getTime()).append("\n");
+        testDate.append("- millis-f: "+simpleDateFormat.format(date.getTime())).append("\n");
+        testDate.append("- toString(): "+date.toString()).append("\n");
         testDate.append("\n");
 
+        return ;
+    }
+
+    private void addCalendar(Date date, StringBuffer testDate, SimpleDateFormat simpleDateFormat) {
+        Calendar calendar = Calendar.getInstance();
+        testDate.append("====================================").append("\n");
+        testDate.append("calendar:").append("\n");
+        testDate.append("- millis: "+calendar.getTimeInMillis()).append("\n");
+        calendar.set(Calendar.MILLISECOND, 999);
+        testDate.append("- reset millis: "+calendar.getTimeInMillis()).append("\n");
+        testDate.append("\n");
+    }
+
+    private void addGregorianCalendar(Date date, StringBuffer testDate, SimpleDateFormat simpleDateFormat) {
         // GregorianCalendar -> millis
         // millis -> GregorianCalendar
 
         GregorianCalendar gregCal = new GregorianCalendar();
         long millisL = gregCal.getTimeInMillis();
         int millisI = Integer.parseInt(String.valueOf(millisL/1000));
-        testDate.append("gregCal - millis long: "+String.valueOf(millisL)).append("\n");
-        testDate.append("gregCal - millis int: "+String.valueOf(millisI)).append("\n");
-        testDate.append("gregCal - millis long/1000: "+String.valueOf(millisL/1000)).append("\n");
 
-        testDate.append("\n");
+        testDate.append("====================================").append("\n");
+        testDate.append("GregorianCalendar:").append("\n");
+        testDate.append("- toString(): "+gregCal.toString()).append("\n");
+        testDate.append("- millis long: "+String.valueOf(millisL)).append("\n");
+        testDate.append("- millis int: "+String.valueOf(millisI)).append("\n");
+        testDate.append("- millis long/1000: "+String.valueOf(millisL/1000)).append("\n");
 
-        testDate.append("gregCal - today: ").append(String.valueOf(gregCal.get(Calendar.DAY_OF_MONTH))).append("\n");
+        testDate.append("- today: ").append(simpleDateFormat.format(gregCal.getTimeInMillis())).append("\n");
         gregCal.add(Calendar.DAY_OF_MONTH, -1);
-        testDate.append("gregCal - yesterday: ").append(String.valueOf(gregCal.get(Calendar.DAY_OF_MONTH))).append("\n");
-
-        tv.setText(testDate.toString());
+        testDate.append("- yesterday: ").append(simpleDateFormat.format(gregCal.getTimeInMillis())).append("\n");
     }
 
     public void onClickGetDateFromDialog(View view) {
