@@ -14,7 +14,11 @@
 
     <string name="but_json">JSON</string>
 
+    <string name="but_database">Database</string>
+
     <string name="but_ok">OK</string>
+    <string name="but_new">NEW</string>
+    <string name="but_edit">EDIT</string>
 
     <string name="but_read_records">Read rec.</string>
     <string name="but_add_records">Add rec.</string>

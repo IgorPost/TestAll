@@ -22,7 +22,8 @@
         <activity android:name=".examples_library.json.ActivityJSON" />
         <activity android:name=".cashe.ActivityPurchase" />
         <activity android:name=".examples_library.ActivityExamplesLibrary" />
-        <activity android:name=".examples_library.date_calendar.ActivityDateCalendar"></activity>
+        <activity android:name=".examples_library.date_calendar.ActivityDateCalendar" />
+        <activity android:name=".examples_library.database.ActivityDatabase"></activity>
     </application>
 
 </manifest>

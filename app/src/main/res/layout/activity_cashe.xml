@@ -32,37 +32,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/listView"
             android:layout_weight="1" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/but_read_records"
-                android:id="@+id/readRecords"
-                android:layout_weight="1"
-                android:onClick="onClickReadRecords" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/but_add_records"
-                android:id="@+id/addRecords"
-                android:layout_weight="1"
-                android:onClick="onClickAddRecords" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="@string/but_del_records"
-                android:id="@+id/button3"
-                android:layout_weight="1"
-                android:onClick="onClickDelRecords" />
-        </LinearLayout>
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -71,58 +40,19 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/but_create_table"
-                android:id="@+id/butCreateTable"
+                android:text="@string/but_new"
+                android:id="@+id/butNew"
                 android:layout_weight="1"
-                android:onClick="onClickCreateTable" />
+                android:onClick="onClickNew" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/but_delete_table"
-                android:id="@+id/butDeleteTable"
+                android:text="@string/but_edit"
+                android:id="@+id/butEdit"
                 android:layout_weight="1"
-                android:onClick="onClickDeleteTable" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/but_rename_table"
-                android:id="@+id/butRenameTable"
-                android:layout_weight="1"
-                android:onClick="onClickRenameTable" />
+                android:onClick="onClickEdit" />
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/but_add_table_column"
-                android:id="@+id/butAddTableColumn"
-                android:layout_weight="1"
-                android:onClick="onClickAddTableColumn" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/but_delete_table_column"
-                android:id="@+id/butDeleteTableColumn"
-                android:layout_weight="1"
-                android:onClick="onClickDeleteTableColumn" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/but_rename_table_column"
-                android:id="@+id/butRenameTableColumn"
-                android:layout_weight="1"
-                android:onClick="onClickRenameTableColumn" />
-        </LinearLayout>
-
     </LinearLayout>
 
 </RelativeLayout>
