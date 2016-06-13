@@ -49,7 +49,8 @@ public class ActivityCashe extends AppCompatActivity {
     }
 
     public void onClickEdit(View view) {
-
+//        Boolean result = CasheDatabaseHelper.recreateTable(this);
+//        Toast.makeText(this, String.valueOf(result), Toast.LENGTH_LONG).show();
     }
 
 }

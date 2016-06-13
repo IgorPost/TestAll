@@ -50,7 +50,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         purshase.save();
     }
 
-    public void onClickGetDate(View view) {
+    public void onClickSetDate(View view) {
         Calendar calendar = Calendar.getInstance();
         int year  = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);

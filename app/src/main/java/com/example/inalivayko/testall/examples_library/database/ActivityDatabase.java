@@ -50,13 +50,26 @@ public class ActivityDatabase extends AppCompatActivity {
     }
 
     public void onClickAddRecords(View view){
+
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
         SQLiteDatabase db = dbh.getReadableDatabase();
+
         insertPurshase(db, "Банаы", 1, 2855, 2855);
         insertPurshase(db, "Яблоки", 2, 1433, 2866);
         insertPurshase(db, "Морковь", 1, 555, 555);
         insertPurshase(db, "Картофель", 4, 641, 2564);
         insertPurshase(db, "Капуста", 1, 742, 742);
+        insertPurshase(db, "Селедка", 1, 8100, 8100);
+        insertPurshase(db, "Скумбрия", 1, 12000, 12000);
+        insertPurshase(db, "Курица целая", 1, 9000, 9000);
+        insertPurshase(db, "Утка целая", 1, 16000, 16000);
+        insertPurshase(db, "Говядина", 1, 8500, 8500);
+        insertPurshase(db, "Свинина", 1, 7800, 7800);
+        insertPurshase(db, "Филе индюшки", 1, 7500, 7500);
+        insertPurshase(db, "Бедро индюшки", 1, 7400, 7400);
+        insertPurshase(db, "Филе курицы", 1, 6900, 6900);
+        insertPurshase(db, "Печень телячья", 1, 6700, 6700);
+
         //db.insert(CasheDatabaseHelper.DatabaseTablePurchases.TABLE_NAME, null,)
         db.close();
         Toast toast = Toast.makeText(this, "Добавлены строки втаблицу \"PURSHASES\"", Toast.LENGTH_SHORT);

@@ -29,6 +29,21 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public static Boolean recreateTable(Context context) {
+
+        // String sql = "DROP TABLE "+TablePurchases.TABLE_NAME+";";
+        String sql = TablePurchases.CREATING_STRING;
+        CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        try{
+            db.execSQL(sql);
+        } catch(SQLiteException e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static Boolean createTable(Context context, String createString) {
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
