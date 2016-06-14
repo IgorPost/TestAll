@@ -22,11 +22,10 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
 
     public static final String EXTRA_PURCHASE_ID = "purchaseID";
 
-    private Purchase purshase;
+    private Purchase purchase;
 
     private TextView tvID;
 
-    private EditText etDate;
     private EditText etName;
     private EditText etQuantity;
     private EditText etPrice;
@@ -39,7 +38,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
 
         int purchaseID = (int) getIntent().getExtras().getInt(EXTRA_PURCHASE_ID);
 
-        purshase = new Purchase(purchaseID, this, this);
+        purchase = new Purchase(purchaseID, this, this);
 
         initControls();
         fillControls();
@@ -47,27 +46,17 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     }
 
     public void onClickSave(View view){
-        purshase.save();
+        purchase.save();
     }
 
     public void onClickSetDate(View view) {
-        Calendar calendar = Calendar.getInstance();
-        int year  = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day   = calendar.get(Calendar.DAY_OF_MONTH);
-        StringBuilder sb = new StringBuilder();
-        // Month is 0 based, just add 1
-        sb.append(day).append("-");
-        sb.append(month + 1).append("-");
-        sb.append(year).append(" ");
-        Toast.makeText(getApplicationContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "onClickSetDate", Toast.LENGTH_SHORT).show();
     }
 
     public void initControls(){
         // TextView
         tvID = (TextView) findViewById(R.id.tvID);
         // EditText
-        etDate = (EditText) findViewById(R.id.etDate);
         etName = (EditText) findViewById(R.id.etName);
         etQuantity = (EditText) findViewById(R.id.etQuantity);
         etPrice = (EditText) findViewById(R.id.etPrice);
@@ -76,12 +65,12 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
 
     public void fillControls(){
         // TextView
-        tvID.setText("ID: "+String.valueOf(purshase.getID()));
+        tvID.setText("ID: "+String.valueOf(purchase.getID()));
         // EditText
-        etName.setText(purshase.getNomenclature());
-        etQuantity.setText(String.valueOf(purshase.getNumber()));
-        etPrice.setText(String.valueOf(purshase.getPrice()/100));
-        etAmount.setText(String.valueOf(purshase.getAmount()/100));
+        etName.setText(purchase.getNomenclature());
+        etQuantity.setText(String.valueOf(purchase.getNumber()));
+        etPrice.setText(String.valueOf(purchase.getPrice()/100));
+        etAmount.setText(String.valueOf(purchase.getAmount()/100));
     }
 
     public void addListeners(){
@@ -92,7 +81,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purshase.setNomenclature(charSequence.toString());
+                purchase.setNomenclature(charSequence.toString());
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -105,7 +94,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purshase.setNumber(Double.valueOf(charSequence.toString()));
+                purchase.setNumber(Double.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -118,7 +107,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purshase.setPrice(Double.valueOf(charSequence.toString()));
+                purchase.setPrice(Double.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -131,7 +120,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purshase.setAmount(Double.valueOf(charSequence.toString()));
+                purchase.setAmount(Double.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -156,7 +145,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         if (etAmount != null) {
             etAmount.setText("777");
             Toast.makeText(getApplicationContext(),
-                    "Cb: "+String.valueOf(purshase.getAmount()), Toast.LENGTH_LONG).show();
+                    "Cb: "+String.valueOf(purchase.getAmount()), Toast.LENGTH_LONG).show();
         }
     }
 
