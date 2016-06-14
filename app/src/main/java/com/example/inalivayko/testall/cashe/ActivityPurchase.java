@@ -2,6 +2,7 @@ package com.example.inalivayko.testall.cashe;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,12 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
+import com.example.inalivayko.testall.examples_library.date_calendar.DialogFragmentSelectDate;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase {
+public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase, DialogFragmentSelectDate.onDateSetFromDialogFragmentListener {
 
     public static final String EXTRA_PURCHASE_ID = "purchaseID";
 
@@ -50,7 +53,9 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     }
 
     public void onClickSetDate(View view) {
-        Toast.makeText(getApplicationContext(), "onClickSetDate", Toast.LENGTH_SHORT).show();
+        FragmentManager manager = getSupportFragmentManager();
+        DialogFragmentSelectDate myDialogFragment = new DialogFragmentSelectDate();
+        myDialogFragment.show(manager, "datePicker");
     }
 
     public void initControls(){
@@ -149,4 +154,11 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         }
     }
 
+    @Override
+    public void dateSelectedFromDialogFragmentListener(int year, int month, int day) {
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month, day);
+        long date = gregorianCalendar.getTimeInMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        Toast.makeText(getApplicationContext(), "Date: "+dateFormat.format(date), Toast.LENGTH_LONG).show();
+    }
 }
