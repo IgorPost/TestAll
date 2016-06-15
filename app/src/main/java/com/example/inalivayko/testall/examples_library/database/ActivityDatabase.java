@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.inalivayko.testall.R;
 import com.example.inalivayko.testall.cashe.CasheDatabaseHelper;
 
+import java.util.GregorianCalendar;
+
 public class ActivityDatabase extends AppCompatActivity {
 
     @Override
@@ -54,21 +56,24 @@ public class ActivityDatabase extends AppCompatActivity {
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        insertPurshase(db, "Банаы", 1, 2855, 2855);
-        insertPurshase(db, "Яблоки", 2, 1433, 2866);
-        insertPurshase(db, "Морковь", 1, 555, 555);
-        insertPurshase(db, "Картофель", 4, 641, 2564);
-        insertPurshase(db, "Капуста", 1, 742, 742);
-        insertPurshase(db, "Селедка", 1, 8100, 8100);
-        insertPurshase(db, "Скумбрия", 1, 12000, 12000);
-        insertPurshase(db, "Курица целая", 1, 9000, 9000);
-        insertPurshase(db, "Утка целая", 1, 16000, 16000);
-        insertPurshase(db, "Говядина", 1, 8500, 8500);
-        insertPurshase(db, "Свинина", 1, 7800, 7800);
-        insertPurshase(db, "Филе индюшки", 1, 7500, 7500);
-        insertPurshase(db, "Бедро индюшки", 1, 7400, 7400);
-        insertPurshase(db, "Филе курицы", 1, 6900, 6900);
-        insertPurshase(db, "Печень телячья", 1, 6700, 6700);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(2016, 6, 15);
+        long date = gregorianCalendar.getTimeInMillis();
+
+        insertPurshase(db, date, "Банаы", 1, 2855, 2855);
+        insertPurshase(db, date, "Яблоки", 2, 1433, 2866);
+        insertPurshase(db, date, "Морковь", 1, 555, 555);
+        insertPurshase(db, date, "Картофель", 4, 641, 2564);
+        insertPurshase(db, date, "Капуста", 1, 742, 742);
+        insertPurshase(db, date, "Селедка", 1, 8100, 8100);
+        insertPurshase(db, date, "Скумбрия", 1, 12000, 12000);
+        insertPurshase(db, date, "Курица целая", 1, 9000, 9000);
+        insertPurshase(db, date, "Утка целая", 1, 16000, 16000);
+        insertPurshase(db, date, "Говядина", 1, 8500, 8500);
+        insertPurshase(db, date, "Свинина", 1, 7800, 7800);
+        insertPurshase(db, date, "Филе индюшки", 1, 7500, 7500);
+        insertPurshase(db, date, "Бедро индюшки", 1, 7400, 7400);
+        insertPurshase(db, date, "Филе курицы", 1, 6900, 6900);
+        insertPurshase(db, date, "Печень телячья", 1, 6700, 6700);
 
         //db.insert(CasheDatabaseHelper.DatabaseTablePurchases.TABLE_NAME, null,)
         db.close();
@@ -88,7 +93,8 @@ public class ActivityDatabase extends AppCompatActivity {
     }
 
     public void onClickDeleteTable(View view) {
-        CasheDatabaseHelper.deleteTable(this, CasheDatabaseHelper.TablePurchases.TABLE_NAME);
+        Boolean rez = CasheDatabaseHelper.deleteTable(this, CasheDatabaseHelper.TablePurchases.TABLE_NAME);
+        Toast.makeText(this, String.valueOf(rez), Toast.LENGTH_SHORT).show();
     }
 
     public void onClickRenameTable(View view) {
@@ -109,10 +115,10 @@ public class ActivityDatabase extends AppCompatActivity {
 
     }
 
-    private static void insertPurshase(SQLiteDatabase db, String nomenclature,
+    private static void insertPurshase(SQLiteDatabase db, long date,String nomenclature,
                                        int number, int price, int amount) {
-        // "NOMENCLATURE", "NUMBER", "PRICE", "AMOUNT"
         ContentValues insertValues = new ContentValues();
+        insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, date);
         insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, nomenclature);
         insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, number);
         insertValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, price);

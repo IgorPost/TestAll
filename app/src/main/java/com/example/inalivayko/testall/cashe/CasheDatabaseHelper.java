@@ -138,6 +138,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         public static final TableColumn COLUMN_AMOUNT = new TableColumn("AMOUNT", "INTEGER", "");
         public static final String CREATING_STRING = "CREATE TABLE "+TABLE_NAME+" ("+
                 COLUMN_ID.name+" "+COLUMN_ID.type+" "+COLUMN_ID.attribute+", "+
+                COLUMN_DATE.name+" "+COLUMN_DATE.type+", "+
                 COLUMN_NOMENCLATURE.name+" "+COLUMN_NOMENCLATURE.type+", "+
                 COLUMN_QUANTITY.name+" "+COLUMN_QUANTITY.type+", "+
                 COLUMN_PRICE.name+" "+COLUMN_PRICE.type+", "+

@@ -1,14 +1,11 @@
 package com.example.inalivayko.testall.cashe;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +14,7 @@ import com.example.inalivayko.testall.R;
 import com.example.inalivayko.testall.examples_library.date_calendar.DialogFragmentSelectDate;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase, DialogFragmentSelectDate.onDateSetFromDialogFragmentListener {
 
@@ -28,6 +23,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     private Purchase purchase;
 
     private TextView tvID;
+    private TextView tvDate;
 
     private EditText etName;
     private EditText etQuantity;
@@ -61,6 +57,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     public void initControls(){
         // TextView
         tvID = (TextView) findViewById(R.id.tvID);
+        tvDate = (TextView) findViewById(R.id.tvDate);
         // EditText
         etName = (EditText) findViewById(R.id.etName);
         etQuantity = (EditText) findViewById(R.id.etQuantity);
@@ -99,7 +96,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purchase.setNumber(Double.valueOf(charSequence.toString()));
+                //purchase.setNumber(Double.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -112,7 +109,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purchase.setPrice(Double.valueOf(charSequence.toString()));
+                //purchase.setPrice(Double.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -125,7 +122,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                purchase.setAmount(Double.valueOf(charSequence.toString()));
+                //purchase.setAmount(Double.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {

@@ -29,7 +29,7 @@ public class ActivityDateCalendar extends AppCompatActivity implements DialogFra
     void setDateOnTextView() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String dateView = dateFormat.format(date);
-        tv.setText(dateView);
+        tv.setText(dateView+"\n"+String.valueOf(date));
     }
 
     public void onClickTest(View view){

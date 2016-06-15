@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.inalivayko.testall.cashe.ActivityPurshase">
+    tools:context="com.example.inalivayko.testall.cashe.ActivityPurchase">
 
     <TextView
         android:layout_width="fill_parent"
@@ -25,7 +25,7 @@
         android:id="@+id/tvDate"
         android:layout_below="@+id/tvID"
         android:gravity="center"
-        android:textSize="16dp"
+        android:textSize="24dp"
         android:onClick="onClickSetDate"
         android:clickable="true" />
 

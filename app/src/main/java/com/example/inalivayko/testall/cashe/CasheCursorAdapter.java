@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.inalivayko.testall.R;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by i.nalivayko on 16.05.2016.
@@ -37,17 +38,22 @@ public class CasheCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        int iD = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        long iD = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_ID.name));
 
-        String strNomenclature = cursor.getString(cursor.getColumnIndexOrThrow("NOMENCLATURE"));
-        double quantity = cursor.getDouble(cursor.getColumnIndexOrThrow("QUANTITY"));
-        double price = cursor.getDouble(cursor.getColumnIndexOrThrow("PRICE"));
-        double amount = cursor.getDouble(cursor.getColumnIndexOrThrow("AMOUNT"));
+        long date = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name));
+        String strNomenclature = cursor.getString(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name));
+        int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name));
+        long price = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name));
+        long amount = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name));
 
         DecimalFormat df = new DecimalFormat("##,##0,00");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         TextView tvID = (TextView) view.findViewById(R.id.tvID);
-        tvID.setText(Integer.toString(iD));
+        tvID.setText(String.valueOf(iD));
+
+        TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
+        tvDate.setText(String.valueOf(dateFormat.format(date)));
 
         Spanned sp = Html.fromHtml("<b>"+strNomenclature+"</b>");
 
