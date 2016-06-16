@@ -19,6 +19,7 @@ import java.util.GregorianCalendar;
 public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase, DialogFragmentSelectDate.onDateSetFromDialogFragmentListener {
 
     public static final String EXTRA_PURCHASE_ID = "purchaseID";
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); // "dd.MM.yyyy HH:mm:ss"
 
     private Purchase purchase;
 
@@ -35,9 +36,9 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purshase);
 
-        int purchaseID = (int) getIntent().getExtras().getInt(EXTRA_PURCHASE_ID);
+        int purchaseID = getIntent().getExtras().getInt(EXTRA_PURCHASE_ID);
 
-        purchase = new Purchase(purchaseID, this, this);
+        purchase = new Purchase(purchaseID, this);
 
         initControls();
         fillControls();
@@ -68,6 +69,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     public void fillControls(){
         // TextView
         tvID.setText("ID: "+String.valueOf(purchase.getID()));
+        tvDate.setText(dateFormat.format(purchase.getDate()));
         // EditText
         etName.setText(purchase.getNomenclature());
         etQuantity.setText(String.valueOf(purchase.getNumber()));
@@ -155,7 +157,8 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     public void dateSelectedFromDialogFragmentListener(int year, int month, int day) {
         GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month, day);
         long date = gregorianCalendar.getTimeInMillis();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        Toast.makeText(getApplicationContext(), "Date: "+dateFormat.format(date), Toast.LENGTH_LONG).show();
+        purchase.setDate(date);
+        tvDate.setText(dateFormat.format(date));
+        //Toast.makeText(getApplicationContext(), "Date: "+dateFormat.format(date), Toast.LENGTH_LONG).show();
     }
 }

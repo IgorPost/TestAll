@@ -14,7 +14,7 @@ import android.widget.Toast;
  */
 public class Purchase {
 
-    private long ID;
+    private final int ID;
     private long date;
     private String nomenclature;
     private int number;
@@ -22,38 +22,37 @@ public class Purchase {
     private long amount;
 
     private Context context;
-    private Activity activity;
 
     interface intPurchase {
         void setAmount();
     };
     private intPurchase listener;
 
-    public Purchase(int ID, Context context, Activity activity) {
+    public Purchase(int ID, Activity activity) {
 
         this.ID = ID;
-        this.context = context;
+        this.context = activity;
         this.listener = (intPurchase) activity;
-        this.activity = activity;
 
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getReadableDatabase();
         Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {CasheDatabaseHelper.TablePurchases.COLUMN_ID.name, CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name}, "_id = ?", new String[] {String.valueOf(ID)}, null, null, null);
         if (cursor.moveToNext()) {
+            setDate(cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name)));
             setNomenclature(cursor.getString(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name)));
             setNumber(cursor.getInt(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name)));
             setPrice(cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name)));
             setAmount(cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name)));
         }
         else {
-            Toast.makeText(activity, "Нет данных для выборки...", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Нет данных для выборки...", Toast.LENGTH_LONG).show();
         }
 
         db.close();
     }
 
     // Сохранить информацию о покупке асинхронно
-    private class SavePurchaseTask extends AsyncTask<Long, Void, Integer> {
+    private class SavePurchaseTask extends AsyncTask<Integer, Void, Integer> {
 
         ContentValues savedValues;
 
@@ -61,17 +60,18 @@ public class Purchase {
             super.onPreExecute();
             // Готовим значения для записи
             savedValues = new ContentValues();
+            savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, getDate());
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, getNomenclature());
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, String.valueOf(getNumber()));
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, String.valueOf(getPrice()));
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name, String.valueOf(getAmount()));
         }
 
-        protected Integer doInBackground(Long... purshaseID) {
+        protected Integer doInBackground(Integer... purshaseID) {
             // Пишем в БД подготовленные значения
             SQLiteOpenHelper dbh = new CasheDatabaseHelper(context);
             SQLiteDatabase db = dbh.getReadableDatabase();
-            Integer rez = db.update(CasheDatabaseHelper.TablePurchases.TABLE_NAME, savedValues, "_id = ?", new String[] {Long.toString(purshaseID[0])});
+            Integer rez = db.update(CasheDatabaseHelper.TablePurchases.TABLE_NAME, savedValues, "_id = ?", new String[] {Integer.toString(purshaseID[0])});
             db.close();
             return rez;
         }
@@ -83,7 +83,7 @@ public class Purchase {
         protected void onPostExecute(Integer rez) {
             super.onPostExecute(rez);
             //Код, выполняемый при завершении задачи
-            Toast.makeText(activity, "Updated "+String.valueOf(rez)+" rows.", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Updated "+String.valueOf(rez)+" rows.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -122,6 +122,14 @@ public class Purchase {
 
     //////////////////////////////////////////////////////////////////////////////////////
     //                              SETTERS AND GETTERS
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 
     public String getNomenclature() {
         return nomenclature;
