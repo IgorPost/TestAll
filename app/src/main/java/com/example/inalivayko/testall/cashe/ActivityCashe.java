@@ -28,7 +28,7 @@ public class ActivityCashe extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
                                         long id) {
                     Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
-                    intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, (int)id);
+                    intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, id);
                     startActivity(intent);
                 }
             });

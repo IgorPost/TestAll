@@ -36,11 +36,11 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purshase);
 
-        int purchaseID = getIntent().getExtras().getInt(EXTRA_PURCHASE_ID);
+        initControls();
 
+        long purchaseID = getIntent().getExtras().getLong(EXTRA_PURCHASE_ID);
         purchase = new Purchase(purchaseID, this);
 
-        initControls();
         fillControls();
         addListeners();
     }
@@ -72,7 +72,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
         tvDate.setText(dateFormat.format(purchase.getDate()));
         // EditText
         etName.setText(purchase.getNomenclature());
-        etQuantity.setText(String.valueOf(purchase.getNumber()));
+        etQuantity.setText(String.valueOf(purchase.getQuantity()));
         etPrice.setText(String.valueOf(purchase.getPrice()/100));
         etAmount.setText(String.valueOf(purchase.getAmount()/100));
     }
@@ -111,7 +111,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //purchase.setPrice(Double.valueOf(charSequence.toString()));
+                //purchase.setPrice(Long.valueOf(charSequence.toString()));
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -146,19 +146,19 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
 
     @Override
     public void setAmount() {
-        if (etAmount != null) {
-            etAmount.setText("777");
-            Toast.makeText(getApplicationContext(),
-                    "Cb: "+String.valueOf(purchase.getAmount()), Toast.LENGTH_LONG).show();
-        }
+//        Toast.makeText(getApplicationContext(),
+//                "setAmount", Toast.LENGTH_LONG).show();
+//        if (etAmount != null) {
+//            etAmount.setText("777");
+//            Toast.makeText(getApplicationContext(),
+//                    "Cb: "+String.valueOf(purchase.getAmount()), Toast.LENGTH_LONG).show();
+//        }
     }
 
     @Override
     public void dateSelectedFromDialogFragmentListener(int year, int month, int day) {
         GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month, day);
-        long date = gregorianCalendar.getTimeInMillis();
-        purchase.setDate(date);
-        tvDate.setText(dateFormat.format(date));
-        //Toast.makeText(getApplicationContext(), "Date: "+dateFormat.format(date), Toast.LENGTH_LONG).show();
+        purchase.setDate(gregorianCalendar.getTimeInMillis());
+        tvDate.setText(dateFormat.format(purchase.getDate()));
     }
 }

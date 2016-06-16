@@ -14,10 +14,12 @@ import android.widget.Toast;
  */
 public class Purchase {
 
-    private final int ID;
+    private final long ID;
+    private int version;
+
     private long date;
     private String nomenclature;
-    private int number;
+    private int quantity;
     private long price;
     private long amount;
 
@@ -28,7 +30,7 @@ public class Purchase {
     };
     private intPurchase listener;
 
-    public Purchase(int ID, Activity activity) {
+    public Purchase(long ID, Activity activity) {
 
         this.ID = ID;
         this.context = activity;
@@ -38,11 +40,11 @@ public class Purchase {
         SQLiteDatabase db = dbh.getReadableDatabase();
         Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {CasheDatabaseHelper.TablePurchases.COLUMN_ID.name, CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name}, "_id = ?", new String[] {String.valueOf(ID)}, null, null, null);
         if (cursor.moveToNext()) {
-            setDate(cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name)));
-            setNomenclature(cursor.getString(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name)));
-            setNumber(cursor.getInt(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name)));
-            setPrice(cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name)));
-            setAmount(cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name)));
+            this.date = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name));
+            this.nomenclature = cursor.getString(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name));
+            this.quantity = cursor.getInt(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name));
+            this.price = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name));
+            this.amount = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name));
         }
         else {
             Toast.makeText(context, "Нет данных для выборки...", Toast.LENGTH_LONG).show();
@@ -52,7 +54,7 @@ public class Purchase {
     }
 
     // Сохранить информацию о покупке асинхронно
-    private class SavePurchaseTask extends AsyncTask<Integer, Void, Integer> {
+    private class SavePurchaseTask extends AsyncTask<Long, Void, Integer> {
 
         ContentValues savedValues;
 
@@ -62,16 +64,16 @@ public class Purchase {
             savedValues = new ContentValues();
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, getDate());
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, getNomenclature());
-            savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, String.valueOf(getNumber()));
+            savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, String.valueOf(getQuantity()));
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, String.valueOf(getPrice()));
             savedValues.put(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name, String.valueOf(getAmount()));
         }
 
-        protected Integer doInBackground(Integer... purshaseID) {
+        protected Integer doInBackground(Long... purshaseID) {
             // Пишем в БД подготовленные значения
             SQLiteOpenHelper dbh = new CasheDatabaseHelper(context);
             SQLiteDatabase db = dbh.getReadableDatabase();
-            Integer rez = db.update(CasheDatabaseHelper.TablePurchases.TABLE_NAME, savedValues, "_id = ?", new String[] {Integer.toString(purshaseID[0])});
+            Integer rez = db.update(CasheDatabaseHelper.TablePurchases.TABLE_NAME, savedValues, "_id = ?", new String[] {Long.toString(purshaseID[0])});
             db.close();
             return rez;
         }
@@ -143,12 +145,12 @@ public class Purchase {
         return ID;
     }
 
-    public int getNumber() {
-        return number;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setQuantity(int number) {
+        this.quantity = number;
     }
 
     public long getPrice() {
@@ -157,7 +159,7 @@ public class Purchase {
 
     public void setPrice(long price) {
         this.price = price;
-        this.amount = this.number*this.price;
+        this.amount = this.quantity*this.price;
         listener.setAmount();
     }
 
