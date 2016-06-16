@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
 public class ActivityPurchase extends AppCompatActivity implements Purchase.intPurchase, DialogFragmentSelectDate.onDateSetFromDialogFragmentListener {
 
     public static final String EXTRA_PURCHASE_ID = "purchaseID";
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); // "dd.MM.yyyy HH:mm:ss"
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); // "dd.MM.yyyy HH:mm:ss"
 
     private Purchase purchase;
 
