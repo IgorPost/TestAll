@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import com.example.inalivayko.testall.examples_library.database.TableColumn;
 
@@ -29,6 +30,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    @NonNull
     public static Boolean recreateTable(Context context) {
 
         // String sql = "DROP TABLE "+TablePurchases.TABLE_NAME+";";
@@ -44,6 +46,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    @NonNull
     public static Boolean createTable(Context context, String createString) {
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
@@ -55,6 +58,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    @NonNull
     public static Boolean deleteTable(Context context, String tableName) {
         String sql = "DROP TABLE IF EXISTS "+tableName+";";
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
@@ -66,6 +70,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         }return true;
     }
 
+    @NonNull
     public static Boolean renameTable(Context context, String fromName, String toName) {
         String sql = "ALTER TABLE "+fromName+" RENAME TO "+toName+";";
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);
@@ -78,6 +83,7 @@ public class CasheDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    @NonNull
     public static Boolean addTableColumn(Context context, String tableName, String columnName, String columnType) {
         String sql = "ALTER TABLE "+tableName+" ADD COLUMN "+columnName+" "+columnType+";"; // ALTER TABLE tbl_info ADD COLUMN weight INTEGER;
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(context);

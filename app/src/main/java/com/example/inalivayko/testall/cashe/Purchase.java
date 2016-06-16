@@ -49,7 +49,7 @@ public class Purchase {
         else {
             Toast.makeText(context, "Нет данных для выборки...", Toast.LENGTH_LONG).show();
         }
-
+        cursor.close();
         db.close();
     }
 
@@ -118,7 +118,7 @@ public class Purchase {
     public static Cursor getList(Context context) {
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(context);
         SQLiteDatabase db = dbh.getReadableDatabase();
-        Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {CasheDatabaseHelper.TablePurchases.COLUMN_ID.name, CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name}, null, null, null, null, null);
+        Cursor cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME, new String[] {CasheDatabaseHelper.TablePurchases.COLUMN_ID.name, CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name, CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name, CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name, CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name, CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name}, null, null, null, null, CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" DESC, "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC");
         return cursor;
     }
 
