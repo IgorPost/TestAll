@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.inalivayko.testall.R;
 import com.example.inalivayko.testall.cashe.CasheDatabaseHelper;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class ActivityDatabase extends AppCompatActivity {
@@ -56,7 +57,7 @@ public class ActivityDatabase extends AppCompatActivity {
         SQLiteOpenHelper dbh = new CasheDatabaseHelper(this);
         SQLiteDatabase db = dbh.getReadableDatabase();
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar(2016, 6, 15);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar(2016, Calendar.JUNE, 15);
         long date = gregorianCalendar.getTimeInMillis();
 
         insertPurshase(db, date, "Банаы", 1, 2855, 2855);
@@ -74,6 +75,9 @@ public class ActivityDatabase extends AppCompatActivity {
         insertPurshase(db, date, "Бедро индюшки", 1, 7400, 7400);
         insertPurshase(db, date, "Филе курицы", 1, 6900, 6900);
         insertPurshase(db, date, "Печень телячья", 1, 6700, 6700);
+        insertPurshase(db, date, "Суши", 1, 8000, 8000);
+        insertPurshase(db, date, "Пицца", 5, 12000, 60000);
+        insertPurshase(db, date, "Шоколад", 2, 3000, 6000);
 
         //db.insert(CasheDatabaseHelper.DatabaseTablePurchases.TABLE_NAME, null,)
         db.close();

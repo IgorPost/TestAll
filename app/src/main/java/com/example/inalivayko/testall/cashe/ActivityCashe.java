@@ -66,8 +66,6 @@ public class ActivityCashe extends AppCompatActivity {
                         CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name,
                         CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name},
                 null, null, null, null, null);
-        //listAdapter.changeCursor(newCursor);
-        lv = (ListView) findViewById(R.id.listView);
         CasheCursorAdapter la = (CasheCursorAdapter) lv.getAdapter();
         la.changeCursor(newCursor);
         cursor = newCursor;
