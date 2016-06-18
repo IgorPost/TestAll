@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
 import com.example.inalivayko.testall.examples_library.date_calendar.DialogFragmentSelectDate;
@@ -20,6 +20,7 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
 
     public static final String EXTRA_PURCHASE_ID = "purchaseID";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy"); // "dd.MM.yyyy HH:mm:ss"
+    private static final String LOG_TAG = "ActivityPurchase";
 
     private Purchase purchase;
 
@@ -50,8 +51,15 @@ public class ActivityPurchase extends AppCompatActivity implements Purchase.intP
     }
 
     public void onClickSetDate(View view) {
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTimeInMillis(purchase.getDate());
+        int y = gregorianCalendar.get(gregorianCalendar.YEAR);
+        int m = gregorianCalendar.get(gregorianCalendar.MONTH);
+        int d = gregorianCalendar.get(gregorianCalendar.DAY_OF_MONTH);
+
         FragmentManager manager = getSupportFragmentManager();
-        DialogFragmentSelectDate myDialogFragment = new DialogFragmentSelectDate();
+        DialogFragmentSelectDate myDialogFragment = DialogFragmentSelectDate.newInstance(y, m, d);
         myDialogFragment.show(manager, "datePicker");
     }
 
