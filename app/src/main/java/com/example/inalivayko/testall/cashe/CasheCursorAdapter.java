@@ -46,27 +46,28 @@ public class CasheCursorAdapter extends CursorAdapter {
         long price = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name));
         long amount = cursor.getLong(cursor.getColumnIndexOrThrow(CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name));
 
-        DecimalFormat df = new DecimalFormat("##,##0,00");
+        DecimalFormat dfQuantity = new DecimalFormat("##,##0,000");
+        DecimalFormat dfMoney = new DecimalFormat("##,##0,00");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         TextView tvID = (TextView) view.findViewById(R.id.tvID);
-        tvID.setText(String.valueOf(iD));
+        tvID.setText("("+String.valueOf(iD)+")");
 
+        //Spanned spDate = Html.fromHtml("<u>"+String.valueOf(dateFormat.format(date))+"</u>");
         TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
         tvDate.setText(String.valueOf(dateFormat.format(date)));
 
-        Spanned sp = Html.fromHtml("<b>"+strNomenclature+"</b>");
-
+        Spanned spNomenclature = Html.fromHtml("<b>"+strNomenclature+"</b>");
         TextView tvNomenclature = (TextView) view.findViewById(R.id.tvNomenclature);
-        tvNomenclature.setText(sp);
+        tvNomenclature.setText(spNomenclature);
 
         TextView tvNumber = (TextView) view.findViewById(R.id.tvNumber);
-        tvNumber.setText("Кол-во: "+String.valueOf(quantity));
+        tvNumber.setText("Кол-во: "+dfQuantity.format(quantity));
 
         TextView tvPrice = (TextView) view.findViewById(R.id.tvPrice);
-        tvPrice.setText("Цена: "+df.format(price));
+        tvPrice.setText("Цена: "+dfMoney.format(price));
 
         TextView tvAmount = (TextView) view.findViewById(R.id.tvAmount);
-        tvAmount.setText("Сумма: "+df.format(amount));
+        tvAmount.setText("Сумма: "+dfMoney.format(amount));
     }
 }
