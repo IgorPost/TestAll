@@ -1,13 +1,17 @@
 package com.example.inalivayko.testall.cashe;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
 
@@ -46,10 +50,11 @@ public class ActivityCashe extends AppCompatActivity {
 
         CasheDatabaseHelper dbh = new CasheDatabaseHelper(this);
         db = dbh.getWritableDatabase();
-        cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-                queryFields, null, null, null, null, queryOrder);
-        listAdapter = new CasheCursorAdapter(this, cursor, 1);
-        lv.setAdapter(listAdapter);
+//        cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
+//                queryFields, null, null, null, null, queryOrder);
+//        listAdapter = new CasheCursorAdapter(this, cursor, 1);
+//        lv.setAdapter(listAdapter);
+        new SetListViewAdapter().execute(db);
     }
 
     public void onRestart() {
@@ -76,5 +81,30 @@ public class ActivityCashe extends AppCompatActivity {
 
         cursor.close();
         db.close();
+    }
+
+    private class SetListViewAdapter extends AsyncTask<SQLiteDatabase, Void, Cursor> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected Cursor doInBackground(SQLiteDatabase... asDb) {
+            Cursor newCursor = asDb[0].query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
+                    queryFields, null, null, null, null, queryOrder);
+            return newCursor;
+        }
+
+        protected void onProgressUpdate(Void... values) {
+            //Код, передающий информацию о ходе выполнения задачи
+        }
+
+        protected void onPostExecute(Cursor newCursor) {
+            super.onPostExecute(newCursor);
+
+            cursor = newCursor;
+            listAdapter = new CasheCursorAdapter(ActivityCashe.this, cursor, 1);
+            lv.setAdapter(listAdapter);
+        }
     }
 }
