@@ -20,18 +20,17 @@ public class ActivityCashe extends AppCompatActivity {
     private ListView lv;
     private CasheCursorAdapter listAdapter;
 
-//    private Cursor cursor;
-//    private SQLiteDatabase db;
-//    private CasheCursorAdapter listAdapter;
+    private Cursor cursor;
+    private SQLiteDatabase db;
 
-    private final String[] queryFields = new String[] {
+    private static final String[] queryFields = new String[] {
             CasheDatabaseHelper.TablePurchases.COLUMN_ID.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name};
-    private final String queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" DESC, "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
+    private static final String queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" DESC, "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,23 +48,13 @@ public class ActivityCashe extends AppCompatActivity {
                 }
         });
 
-//        CasheDatabaseHelper dbh = new CasheDatabaseHelper(this);
-//        db = dbh.getWritableDatabase();
-//        cursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-//                queryFields, null, null, null, null, queryOrder);
-//        listAdapter = new CasheCursorAdapter(this, cursor, 1);
-//        lv.setAdapter(listAdapter);
         new SetListViewAdapter().execute();
     }
 
     public void onRestart() {
         super.onRestart();
 
-//        Cursor newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-//                queryFields, null, null, null, null, queryOrder);
-//        listAdapter.changeCursor(newCursor);
-//        cursor = newCursor;
-        new SetListViewAdapter().execute();
+        new ChangeAdapterCursor().execute(db);
     }
 
     public void onClickNew(View view) {
@@ -81,25 +70,57 @@ public class ActivityCashe extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
 
-//        cursor.close();
-//        db.close();
+        cursor.close();
+        db.close();
     }
 
-    private class SetListViewAdapter extends AsyncTask<Void, Void, Cursor> {
+    private class SetListViewAdapter extends AsyncTask<Void, Void, AsyncTaskRezult> {
 
         protected void onPreExecute() {
             super.onPreExecute();
+
         }
 
-        protected Cursor doInBackground(Void... values) {
+        protected AsyncTaskRezult doInBackground(Void... values) {
 
             CasheDatabaseHelper dbh = new CasheDatabaseHelper(ActivityCashe.this);
             SQLiteDatabase db = dbh.getWritableDatabase();
 
-            //db = asDbh[0].getWritableDatabase();
-
             Cursor newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-                    queryFields, null, null, null, null, queryOrder);
+                    ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
+
+            AsyncTaskRezult rezult = new AsyncTaskRezult(db, newCursor);
+
+            return rezult;
+        }
+
+        protected void onProgressUpdate(Void... values) {
+            //Код, передающий информацию о ходе выполнения задачи
+        }
+
+        protected void onPostExecute(AsyncTaskRezult rezult) {
+            super.onPostExecute(rezult);
+
+            db = rezult.getDatabase();
+            cursor = rezult.getCursor();
+
+            listAdapter = new CasheCursorAdapter(ActivityCashe.this, cursor, 1);
+            lv.setAdapter(listAdapter);
+        }
+    }
+
+    private class ChangeAdapterCursor extends AsyncTask<SQLiteDatabase, Void, Cursor> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        protected Cursor doInBackground(SQLiteDatabase... dbParam) {
+
+            Cursor newCursor = dbParam[0].query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
+                    ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
+
             return newCursor;
         }
 
@@ -110,9 +131,34 @@ public class ActivityCashe extends AppCompatActivity {
         protected void onPostExecute(Cursor newCursor) {
             super.onPostExecute(newCursor);
 
-            //cursor = newCursor;
-            listAdapter = new CasheCursorAdapter(ActivityCashe.this, newCursor, 1);
-            lv.setAdapter(listAdapter);
+            listAdapter.changeCursor(newCursor);
+        }
+    }
+
+    class AsyncTaskRezult {
+
+        private SQLiteDatabase database;
+        private Cursor cursor;
+
+        AsyncTaskRezult(SQLiteDatabase db, Cursor c) {
+            this.database = db;
+            this.cursor = c;
+        }
+
+        public void setDatabase(SQLiteDatabase db) {
+            this.database = db;
+        }
+
+        public SQLiteDatabase getDatabase() {
+            return  database;
+        }
+
+        public void setCursor(Cursor c) {
+            this.cursor = c;
+        }
+
+        public Cursor getCursor() {
+            return  cursor;
         }
     }
 }
