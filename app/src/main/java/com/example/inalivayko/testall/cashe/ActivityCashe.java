@@ -91,6 +91,12 @@ public class ActivityCashe extends AppCompatActivity {
 
             AsyncTaskRezult rezult = new AsyncTaskRezult(db, newCursor);
 
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
             return rezult;
         }
 
@@ -120,6 +126,12 @@ public class ActivityCashe extends AppCompatActivity {
 
             Cursor newCursor = dbParam[0].query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
                     ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
+
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
             return newCursor;
         }
