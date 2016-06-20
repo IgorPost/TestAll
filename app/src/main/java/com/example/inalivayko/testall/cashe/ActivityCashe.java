@@ -10,12 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
 
 public class ActivityCashe extends AppCompatActivity {
+
+    Spinner spOrderType;
+    ArrayAdapter<String> spOrderTypeAdapter;
 
     private ListView lv;
     private CasheCursorAdapter listAdapter;
@@ -32,10 +37,35 @@ public class ActivityCashe extends AppCompatActivity {
             CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name};
     private static final String queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" DESC, "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
 
+    private static final String[] orderTypes = {"ASC", "DESC"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashe);
+
+        // адаптер
+        spOrderTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, orderTypes);
+        spOrderTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spOrderType = (Spinner) findViewById(R.id.spOrderType);
+        spOrderType.setAdapter(spOrderTypeAdapter);
+        // заголовок
+        spOrderType.setPrompt("Order");
+        // выделяем элемент
+        spOrderType.setSelection(0);
+        // устанавливаем обработчик нажатия
+        spOrderType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                // показываем позиция нажатого элемента
+                Toast.makeText(getBaseContext(), "Order: " + orderTypes[position], Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
 
         lv = (ListView) findViewById(R.id.listView);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,15 +119,15 @@ public class ActivityCashe extends AppCompatActivity {
             Cursor newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
                     ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
 
-            AsyncTaskRezult rezult = new AsyncTaskRezult(db, newCursor);
+            //AsyncTaskRezult rezult = new AsyncTaskRezult(db, newCursor);
 
 //            try {
-//                Thread.sleep(500);
+//                Thread.sleep(5000);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
 
-            return rezult;
+            return new AsyncTaskRezult(db, newCursor);
         }
 
         protected void onProgressUpdate(Void... values) {
@@ -124,7 +154,7 @@ public class ActivityCashe extends AppCompatActivity {
 
         protected Cursor doInBackground(SQLiteDatabase... dbParam) {
 
-            Cursor newCursor = dbParam[0].query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
+            return dbParam[0].query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
                     ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
 
 //            try {
@@ -133,7 +163,7 @@ public class ActivityCashe extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
 
-            return newCursor;
+            //return newCursor;
         }
 
         protected void onProgressUpdate(Void... values) {
