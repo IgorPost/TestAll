@@ -45,17 +45,21 @@ public class ActivityCashe extends AppCompatActivity {
 
     private int currentOrderType;
 
+    private boolean clauseUsed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashe);
+
+        clauseUsed = false;
 
         etWhere = (EditText) findViewById(R.id.etWhere);
         etWhere.addTextChangedListener(new TextWatcher(){
             @Override
             public void afterTextChanged(Editable s) {
                 // Прописываем то, что надо выполнить после изменения текста
-                if (s.toString().length() > 2) {
+                if (s.toString().length() > 2 || clauseUsed) {
                     //Toast.makeText(getBaseContext(), "AfterTextChanged: " + s.toString(), Toast.LENGTH_SHORT).show();
                     new SetListViewAdapter().execute();
                 }
@@ -143,7 +147,13 @@ public class ActivityCashe extends AppCompatActivity {
             super.onPreExecute();
 
             queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" "+orderTypes[currentOrderType]+", "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
-            whereClause = etWhere.getText().toString();
+            if (etWhere.getText().length()<3) {
+                whereClause = "";
+            }
+            else {
+                whereClause = etWhere.getText().toString();
+            }
+
         }
 
         protected AsyncTaskRezult doInBackground(Void... values) {
@@ -151,8 +161,18 @@ public class ActivityCashe extends AppCompatActivity {
             CasheDatabaseHelper dbh = new CasheDatabaseHelper(ActivityCashe.this);
             SQLiteDatabase db = dbh.getWritableDatabase();
 
-            Cursor newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-                    ActivityCashe.queryFields, null, null, null, null, queryOrder);
+            Cursor newCursor;
+
+            if (whereClause.isEmpty()) {
+                newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
+                        ActivityCashe.queryFields, null, null, null, null, queryOrder);
+                clauseUsed = false;
+            }
+            else {
+                newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
+                        ActivityCashe.queryFields, CasheDatabaseHelper.TablePurchases.COLUMN_NOMENCLATURE.name+" LIKE ?", new String[] {"%"+whereClause+"%"}, null, null, queryOrder);
+                clauseUsed = true;
+            }
 
             //AsyncTaskRezult rezult = new AsyncTaskRezult(db, newCursor);
 
