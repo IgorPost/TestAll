@@ -8,9 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,8 +22,10 @@ import com.example.inalivayko.testall.R;
 
 public class ActivityCashe extends AppCompatActivity {
 
-    Spinner spOrderType;
-    ArrayAdapter<String> spOrderTypeAdapter;
+    private Spinner spOrderType;
+    private ArrayAdapter<String> spOrderTypeAdapter;
+
+    private EditText etWhere;
 
     private ListView lv;
     private CasheCursorAdapter listAdapter;
@@ -35,14 +40,46 @@ public class ActivityCashe extends AppCompatActivity {
             CasheDatabaseHelper.TablePurchases.COLUMN_QUANTITY.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_PRICE.name,
             CasheDatabaseHelper.TablePurchases.COLUMN_AMOUNT.name};
-    private static final String queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" DESC, "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
 
     private static final String[] orderTypes = {"ASC", "DESC"};
+
+    private int currentOrderType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashe);
+
+        etWhere = (EditText) findViewById(R.id.etWhere);
+        etWhere.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Прописываем то, что надо выполнить после изменения текста
+                if (s.toString().length() > 2) {
+                    //Toast.makeText(getBaseContext(), "AfterTextChanged: " + s.toString(), Toast.LENGTH_SHORT).show();
+                    new SetListViewAdapter().execute();
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        lv = (ListView) findViewById(R.id.listView);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                    long id) {
+                Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
+                intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, id);
+                startActivity(intent);
+            }
+        });
 
         // адаптер
         spOrderTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, orderTypes);
@@ -59,23 +96,16 @@ public class ActivityCashe extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                // показываем позиция нажатого элемента
-                Toast.makeText(getBaseContext(), "Order: " + orderTypes[position], Toast.LENGTH_SHORT).show();
+                // показываем позицию нажатого элемента
+                if (currentOrderType != position) {
+                    currentOrderType = position;
+                    //Toast.makeText(getBaseContext(), "Order: " + orderTypes[currentOrderType], Toast.LENGTH_SHORT).show();
+                    new SetListViewAdapter().execute();
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
-        });
-
-        lv = (ListView) findViewById(R.id.listView);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-                                        long id) {
-                    Intent intent = new Intent(ActivityCashe.this, ActivityPurchase.class);
-                    intent.putExtra(ActivityPurchase.EXTRA_PURCHASE_ID, id);
-                    startActivity(intent);
-                }
         });
 
         new SetListViewAdapter().execute();
@@ -106,9 +136,14 @@ public class ActivityCashe extends AppCompatActivity {
 
     private class SetListViewAdapter extends AsyncTask<Void, Void, AsyncTaskRezult> {
 
+        private String queryOrder;
+        private String whereClause;
+
         protected void onPreExecute() {
             super.onPreExecute();
 
+            queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" "+orderTypes[currentOrderType]+", "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
+            whereClause = etWhere.getText().toString();
         }
 
         protected AsyncTaskRezult doInBackground(Void... values) {
@@ -117,7 +152,7 @@ public class ActivityCashe extends AppCompatActivity {
             SQLiteDatabase db = dbh.getWritableDatabase();
 
             Cursor newCursor = db.query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-                    ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
+                    ActivityCashe.queryFields, null, null, null, null, queryOrder);
 
             //AsyncTaskRezult rezult = new AsyncTaskRezult(db, newCursor);
 
@@ -147,15 +182,18 @@ public class ActivityCashe extends AppCompatActivity {
 
     private class ChangeAdapterCursor extends AsyncTask<SQLiteDatabase, Void, Cursor> {
 
+        private String queryOrder;
+
         protected void onPreExecute() {
             super.onPreExecute();
 
+            queryOrder = CasheDatabaseHelper.TablePurchases.COLUMN_DATE.name+" "+orderTypes[currentOrderType]+", "+CasheDatabaseHelper.TablePurchases.COLUMN_ID.name+" ASC";
         }
 
         protected Cursor doInBackground(SQLiteDatabase... dbParam) {
 
             return dbParam[0].query(CasheDatabaseHelper.TablePurchases.TABLE_NAME,
-                    ActivityCashe.queryFields, null, null, null, null, ActivityCashe.queryOrder);
+                    ActivityCashe.queryFields, null, null, null, null, queryOrder);
 
 //            try {
 //                Thread.sleep(500);
