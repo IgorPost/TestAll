@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inalivayko.testall.R;
@@ -24,6 +25,8 @@ public class ActivityCashe extends AppCompatActivity {
 
     private Spinner spOrderType;
     private ArrayAdapter<String> spOrderTypeAdapter;
+
+    private TextView tvPeriod;
 
     private EditText etWhere;
 
@@ -51,6 +54,9 @@ public class ActivityCashe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashe);
+
+        tvPeriod = (TextView) findViewById(R.id.tvPeriod);
+        tvPeriod.setText("Period: ALL");
 
         clauseUsed = false;
 
@@ -119,6 +125,10 @@ public class ActivityCashe extends AppCompatActivity {
         super.onRestart();
 
         new ChangeAdapterCursor().execute(db);
+    }
+
+    public void onClickSetPeriod(View view) {
+
     }
 
     public void onClickNew(View view) {
