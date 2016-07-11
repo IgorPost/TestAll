@@ -40,4 +40,14 @@
         android:layout_marginTop="31dp"
         android:onClick="onClickDatabase" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/but_some_test"
+        android:id="@+id/butSomeTest"
+        android:layout_below="@+id/tvExamplesLibrary"
+        android:layout_toRightOf="@+id/butDatabase"
+        android:layout_marginTop="31dp"
+        android:onClick="onClickSomeTest" />
+
 </RelativeLayout>

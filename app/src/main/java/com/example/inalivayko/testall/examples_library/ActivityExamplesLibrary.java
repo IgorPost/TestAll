@@ -8,6 +8,7 @@ import android.view.View;
 import com.example.inalivayko.testall.R;
 import com.example.inalivayko.testall.examples_library.database.ActivityDatabase;
 import com.example.inalivayko.testall.examples_library.date_calendar.ActivityDateCalendar;
+import com.example.inalivayko.testall.examples_library.some_test.ActivitySomeTest;
 
 public class ActivityExamplesLibrary extends AppCompatActivity {
 
@@ -26,6 +27,11 @@ public class ActivityExamplesLibrary extends AppCompatActivity {
 
     public void onClickDatabase(View view){
         Intent intent = new Intent(this, ActivityDatabase.class);
+        startActivity(intent);
+    }
+
+    public void onClickSomeTest(View view){
+        Intent intent = new Intent(this, ActivitySomeTest.class);
         startActivity(intent);
     }
 }
