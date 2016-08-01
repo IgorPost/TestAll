@@ -50,4 +50,12 @@
         android:layout_marginTop="31dp"
         android:onClick="onClickSomeTest" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/but_sea_fight"
+        android:id="@+id/butSeaFight"
+        android:layout_below="@+id/butDateCalendar"
+        android:onClick="onClickSeaFight" />
+
 </RelativeLayout>

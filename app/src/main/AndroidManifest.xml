@@ -24,7 +24,8 @@
         <activity android:name=".examples_library.ActivityExamplesLibrary" />
         <activity android:name=".examples_library.date_calendar.ActivityDateCalendar" />
         <activity android:name=".examples_library.database.ActivityDatabase" />
-        <activity android:name=".examples_library.some_test.ActivitySomeTest"></activity>
+        <activity android:name=".examples_library.some_test.ActivitySomeTest" />
+        <activity android:name=".examples_library.sea_fight.ActivitySeaFight"></activity>
     </application>
 
 </manifest>
