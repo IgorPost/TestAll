@@ -36,7 +36,8 @@
         android:id="@+id/butGetDateFromDialog"
         android:layout_below="@+id/tvDateCalendar"
         android:layout_toRightOf="@+id/butDateCalendar"
-        android:onClick="onClickGetDateFromDialog" />
+        android:onClick="onClickGetDateFromDialog"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:layout_width="fill_parent"
